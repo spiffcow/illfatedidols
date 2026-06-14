@@ -8,3 +8,7 @@ Thumbs.db
 # Build output
 node_modules/
 dist/
+
+# Local preview/render scratch files
+_preview*.png
+_full.*
