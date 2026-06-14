@@ -28,7 +28,7 @@
 
   /* ---------- Scroll reveal ---------- */
   var revealTargets = document.querySelectorAll(
-    ".section-title, .about-copy, .about-features, .gallery-item, .gallery-cta, .contact-form, .contact-alt, .section-sub"
+    ".section-title, .about-copy, .about-features, .maker-card, .gallery-item, .gallery-cta, .contact-form, .contact-alt, .section-sub"
   );
   revealTargets.forEach(function (el) { el.classList.add("reveal"); });
 
