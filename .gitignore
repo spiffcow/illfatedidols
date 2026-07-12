@@ -16,3 +16,7 @@ _full.*
 
 # Raw camera originals (kept local; only optimized web versions are committed)
 images/photos/
+
+# Raw source videos (kept local; only optimized web loops are committed)
+video/cthulu.mp4
+video/yog_sothoth.mp4
