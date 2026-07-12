@@ -11,4 +11,8 @@ dist/
 
 # Local preview/render scratch files
 _preview*.png
+_hero.png
 _full.*
+
+# Raw camera originals (kept local; only optimized web versions are committed)
+images/photos/

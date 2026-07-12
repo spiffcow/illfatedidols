@@ -46,9 +46,10 @@
   <main>
     <!-- ============================== HERO ============================== -->
     <section class="hero" id="hero">
-      <div class="hero-glow" aria-hidden="true"></div>
+      <img src="images/hero.jpg" alt="An iridescent hand-painted Cthulhu idol" class="hero-bg" fetchpriority="high" />
+      <div class="hero-overlay" aria-hidden="true"></div>
       <div class="hero-inner">
-        <img src="images/logo-hero.png" alt="Ill-Fated Idols — tentacled eldritch emblem" class="hero-logo" />
+        <img src="images/logo-stacked.png" alt="Ill-Fated Idols" class="hero-logo" />
         <!-- HERO TAGLINE — replace with your line -->
         <p class="hero-tagline">Dark gods, cast in resin and rendered by hand.</p>
         <div class="hero-actions">
@@ -136,28 +137,49 @@
     <section class="section gallery" id="gallery">
       <div class="section-inner">
         <h2 class="section-title">The Gallery of Idols</h2>
-        <p class="section-sub">A glimpse of what has crawled out of the workshop. <em>(Product photos coming soon.)</em></p>
+        <p class="section-sub">A glimpse of what has crawled out of the workshop. Tap any idol to look closer.</p>
 
         <div class="gallery-grid">
-          <!-- GALLERY ITEMS — replace data-full + img src with real product photos.
-               Keep the structure; the lightbox + layout handle the rest. -->
-          <button class="gallery-item placeholder" data-full="" data-caption="Idol No. I">
-            <span class="ph-label">Idol No. I</span>
+          <!-- GALLERY ITEMS — captions are placeholders; rename freely.
+               _thumb.jpg = grid image, .jpg (full) = lightbox image. -->
+          <button class="gallery-item" data-full="images/gallery/Yog-synth-2-orange.jpg" data-caption="Yog-Synth · Amber">
+            <img src="images/gallery/Yog-synth-2-orange_thumb.jpg" alt="Yog-Synth idol, amber colorway" loading="lazy" />
           </button>
-          <button class="gallery-item placeholder" data-full="" data-caption="Idol No. II">
-            <span class="ph-label">Idol No. II</span>
+          <button class="gallery-item" data-full="images/gallery/Yog-synth-2-pink.jpg" data-caption="Yog-Synth · Orchid">
+            <img src="images/gallery/Yog-synth-2-pink_thumb.jpg" alt="Yog-Synth idol, orchid colorway" loading="lazy" />
           </button>
-          <button class="gallery-item placeholder" data-full="" data-caption="Idol No. III">
-            <span class="ph-label">Idol No. III</span>
+          <button class="gallery-item" data-full="images/gallery/IMG_4094.jpg" data-caption="The Devourer">
+            <img src="images/gallery/IMG_4094_thumb.jpg" alt="Toothed multicolor idol" loading="lazy" />
           </button>
-          <button class="gallery-item placeholder" data-full="" data-caption="Idol No. IV">
-            <span class="ph-label">Idol No. IV</span>
+          <button class="gallery-item" data-full="images/gallery/IMG_4118.jpg" data-caption="Elder, in Bronze">
+            <img src="images/gallery/IMG_4118_thumb.jpg" alt="Bronze-finished Cthulhu idol" loading="lazy" />
           </button>
-          <button class="gallery-item placeholder" data-full="" data-caption="Idol No. V">
-            <span class="ph-label">Idol No. V</span>
+          <button class="gallery-item" data-full="images/gallery/IMG_4105.jpg" data-caption="Verdant Sleeper">
+            <img src="images/gallery/IMG_4105_thumb.jpg" alt="Translucent green horned idol" loading="lazy" />
           </button>
-          <button class="gallery-item placeholder" data-full="" data-caption="Idol No. VI">
-            <span class="ph-label">Idol No. VI</span>
+          <button class="gallery-item" data-full="images/gallery/IMG_4188.jpg" data-caption="Yog-Synth · Illuminated">
+            <img src="images/gallery/IMG_4188_thumb.jpg" alt="Illuminated pink Yog-Synth idol" loading="lazy" />
+          </button>
+          <button class="gallery-item" data-full="images/gallery/IMG_4099.jpg" data-caption="Yog-Synth · Nebula">
+            <img src="images/gallery/IMG_4099_thumb.jpg" alt="Blue and purple Yog-Synth idol" loading="lazy" />
+          </button>
+          <button class="gallery-item" data-full="images/gallery/IMG_4159.jpg" data-caption="Spawn of the Deep">
+            <img src="images/gallery/IMG_4159_thumb.jpg" alt="Bright green Cthulhu idol" loading="lazy" />
+          </button>
+          <button class="gallery-item" data-full="images/gallery/IMG_4102.jpg" data-caption="The Emerald Larva">
+            <img src="images/gallery/IMG_4102_thumb.jpg" alt="Translucent green resin idol" loading="lazy" />
+          </button>
+          <button class="gallery-item" data-full="images/gallery/IMG_4193.jpg" data-caption="Yog-Synth · Ember-lit">
+            <img src="images/gallery/IMG_4193_thumb.jpg" alt="Illuminated pink and purple idol" loading="lazy" />
+          </button>
+          <button class="gallery-item" data-full="images/gallery/IMG_4135.jpg" data-caption="Yog-Synth · Emberglow">
+            <img src="images/gallery/IMG_4135_thumb.jpg" alt="Pink idol with amber sphere" loading="lazy" />
+          </button>
+          <button class="gallery-item" data-full="images/gallery/IMG_4144.jpg" data-caption="Yog-Synth · Bloodmoon">
+            <img src="images/gallery/IMG_4144_thumb.jpg" alt="Blue and pink idol with dark sphere" loading="lazy" />
+          </button>
+          <button class="gallery-item" data-full="images/gallery/IMG_4175.jpg" data-caption="Yog-Synth · Fuchsia">
+            <img src="images/gallery/IMG_4175_thumb.jpg" alt="Fuchsia idol with magenta sphere" loading="lazy" />
           </button>
         </div>
 
