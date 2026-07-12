@@ -37,6 +37,7 @@ Search the source for these tokens and replace them:
 |-------|-------|--------------|
 | `ETSY_URL` | index.html (nav, hero, gallery, footer) | Your Etsy shop URL |
 | `INSTAGRAM_URL` | index.html (footer) | Your Instagram URL |
+| `NSMINIS_MMF_URL` | index.html (about, footer) | NS Miniatures MyMiniFactory page URL |
 | `FORMSPREE_ID` | index.html (form action) | Your Formspree form ID |
 | `CONTACT_EMAIL` | index.html (contact-alt) | Display email address |
 | `HERO TAGLINE` | index.html (`.hero-tagline`) | One-line tagline |

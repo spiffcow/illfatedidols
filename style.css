@@ -548,6 +548,13 @@ a:hover { color: #e3b6ff; }
   border-color: var(--accent);
   transform: translateY(-2px);
 }
+.credit {
+  color: var(--muted);
+  font-size: .85rem;
+  margin: 0 0 .4rem;
+  letter-spacing: .03em;
+}
+.credit a { color: var(--accent); }
 .copyright {
   color: var(--muted);
   font-size: .85rem;
