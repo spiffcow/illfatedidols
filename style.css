@@ -4,6 +4,16 @@
    deep eggplant background + bright orchid-magenta accent
    ============================================================ */
 
+/* Display face — Maragsa Display by John David Maza (free for commercial use).
+   Self-hosted; body text uses Montserrat (loaded via Google Fonts). */
+@font-face {
+  font-family: "Maragsa";
+  src: url("fonts/Maragsa-Display.woff2") format("woff2");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --bg:        #150421;
   --bg-2:      #1d0830;
@@ -20,8 +30,8 @@
   --radius: 14px;
   --shadow-glow: 0 0 60px rgba(199, 112, 238, 0.25);
 
-  --font-display: "Cinzel", "Times New Roman", serif;
-  --font-body: "Spectral", Georgia, serif;
+  --font-display: "Maragsa", "Times New Roman", serif;
+  --font-body: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -40,7 +50,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
-  font-size: 1.05rem;
+  font-size: 1rem;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;

@@ -8,10 +8,11 @@ and hand-painted sculptures. Static site, hosted on GitHub Pages.
 ## Structure
 
 ```
-index.html          # all page content (header, hero, about, makers, gallery, contact, footer)
+index.html          # all page content (header, hero, about, makers, gallery, lamps, contact, footer)
 style.css           # all styling + responsive + animations
 main.js             # nav toggle, scroll reveal, lightbox, contact-form submit
 favicon.png         # circular eye icon
+fonts/              # self-hosted Maragsa Display (woff2); body font Montserrat via Google Fonts
 images/
   logo-*.png        # transparent brand logos (hero wordmark, header, icon)
   hero.jpg          # optimized hero/header background (from IMG_0009_2)
@@ -51,6 +52,12 @@ Search the source for these tokens and replace them:
 python -m http.server
 # then open http://localhost:8000
 ```
+
+## Fonts
+
+- **Headings:** Maragsa Display by John David Maza — free for personal &
+  commercial use. Self-hosted at `fonts/Maragsa-Display.woff2`.
+- **Body:** Montserrat, loaded from Google Fonts in `index.html`.
 
 ## Deployment
 
