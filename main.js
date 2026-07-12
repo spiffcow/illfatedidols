@@ -28,7 +28,7 @@
 
   /* ---------- Scroll reveal ---------- */
   var revealTargets = document.querySelectorAll(
-    ".section-title, .about-copy, .about-features, .maker-card, .gallery-item, .gallery-cta, .contact-form, .contact-alt, .section-sub"
+    ".section-title, .about-copy, .about-features, .maker-card, .gallery-item, .lamp-item, .gallery-cta, .contact-form, .contact-alt, .section-sub"
   );
   revealTargets.forEach(function (el) { el.classList.add("reveal"); });
 
@@ -69,7 +69,7 @@
     document.body.style.overflow = "";
   }
 
-  document.querySelectorAll(".gallery-item").forEach(function (item) {
+  document.querySelectorAll(".gallery-item, .lamp-item").forEach(function (item) {
     item.addEventListener("click", function () {
       openLightbox(item.getAttribute("data-full"), item.getAttribute("data-caption"));
     });
