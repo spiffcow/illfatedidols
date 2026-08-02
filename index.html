@@ -36,7 +36,6 @@
       </button>
       <ul class="nav-menu" id="nav-menu">
         <li><a href="#about">About</a></li>
-        <li><a href="#makers">Makers</a></li>
         <li><a href="#gallery">Gallery</a></li>
         <li><a href="#lamps">Lamps</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -70,70 +69,33 @@
         <h2 class="section-title">The Cult Behind the Craft</h2>
         <div class="about-grid">
           <div class="about-copy">
-            <!-- ABOUT COPY — replace the paragraphs below with your text -->
+            <!-- ABOUT COPY -->
             <p class="lede">
-              Ill-Fated Idols is a small studio bringing dark, eldritch, and
-              Lovecraftian sculptures to life — each one 3D-printed, then
-              hand-painted into being.
+              Ill-Fated Idols is a small studio making eldritch, Lovecraftian
+              creatures in colors they were never meant to come in — each one
+              3D-printed, then hand-painted into glowing, candy-bright, faintly
+              cursed life.
             </p>
             <p>
               Every idol begins as a digital sculpt by the wildly talented
               <a href="NSMINIS_MMF_URL" target="_blank" rel="noopener">NS&nbsp;Miniatures</a>.
-              We bring it into the physical world — summoned layer by layer on the
-              print bed, then finished by hand: primed, shaded, and detailed until
-              the thing on your shelf looks like it remembers a world older than
-              ours. No two are exactly alike.
+              We bring it into the physical world — printed layer by layer, then
+              finished by hand: primed, shaded, and washed in translucent color
+              until it looks like stained glass that grew teeth. No two are
+              exactly alike.
             </p>
             <p>
-              Whether you collect cosmic horror, run a tabletop campaign, or
-              simply want something unsettling watching over your desk — there's
-              an idol here waiting to be claimed.
+              Whether you collect cosmic horror, run a tabletop campaign, or just
+              want something colorful and a little unsettling watching over your
+              desk — there's an idol here waiting to be claimed.
             </p>
           </div>
           <ul class="about-features">
             <li><span class="feat-mark" aria-hidden="true"></span> 3D-printed in durable resin &amp; PLA</li>
             <li><span class="feat-mark" aria-hidden="true"></span> Hand-painted, one at a time</li>
-            <li><span class="feat-mark" aria-hidden="true"></span> Eldritch, otherworldly detail</li>
+            <li><span class="feat-mark" aria-hidden="true"></span> Vivid, translucent colorways</li>
             <li><span class="feat-mark" aria-hidden="true"></span> Made to order — yours alone</li>
           </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================== MAKERS ============================== -->
-    <section class="section makers" id="makers">
-      <div class="section-inner">
-        <h2 class="section-title">Meet the Makers</h2>
-        <!-- MAKERS INTRO — first person. Replace E &amp; D with real names. -->
-        <p class="section-sub makers-intro">
-          Hi — we're <strong>E</strong> &amp; <strong>D</strong>, the two pairs of
-          hands behind every idol. We print and hand-paint each piece ourselves
-          from our little workshop, one cursed creation at a time.
-        </p>
-
-        <div class="maker-grid">
-          <!-- MAKER CARD — duplicate/replace. Add a photo by putting
-               <img src="images/your-photo.jpg" alt="E"> inside .maker-portrait. -->
-          <article class="maker-card">
-            <div class="maker-portrait" aria-hidden="true"><span>E</span></div>
-            <h3 class="maker-name">E</h3>
-            <p class="maker-role">Printing &amp; Production</p>
-            <p class="maker-bio">
-              Coaxes each idol out of the resin — dialing in every print so the
-              last tentacle and tooth survives the leap from digital sculpt to
-              solid form.
-            </p>
-          </article>
-
-          <article class="maker-card">
-            <div class="maker-portrait" aria-hidden="true"><span>D</span></div>
-            <h3 class="maker-name">D</h3>
-            <p class="maker-role">Painter &amp; Finisher</p>
-            <p class="maker-bio">
-              Brings each idol to life by hand — priming, shading, and detailing
-              until the resin seems to breathe with something it shouldn't.
-            </p>
-          </article>
         </div>
       </div>
     </section>
@@ -253,8 +215,11 @@
         <h2 class="section-title">Summon Us</h2>
         <p class="section-sub">Commissions, questions, or custom horrors — send word.</p>
 
-        <!-- CONTACT FORM — replace FORMSPREE_ID in the action below. -->
-        <form class="contact-form" action="https://formspree.io/f/FORMSPREE_ID" method="POST">
+        <!-- CONTACT FORM — JS composes an email to illfatedidols@gmail.com on submit.
+             The mailto action is a no-JS fallback. To switch to background sending
+             (no email app needed), sign up a free Formspree/Web3Forms form with
+             illfatedidols@gmail.com and swap the action + handler. -->
+        <form class="contact-form" action="mailto:illfatedidols@gmail.com" method="POST" enctype="text/plain">
           <div class="field">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" required autocomplete="name" />
@@ -274,7 +239,8 @@
         </form>
 
         <p class="contact-alt">
-          Prefer email? <a href="mailto:CONTACT_EMAIL">CONTACT_EMAIL</a>
+          Prefer email? Write to us any time at
+          <a href="mailto:illfatedidols@gmail.com">illfatedidols@gmail.com</a>.
         </p>
       </div>
     </section>

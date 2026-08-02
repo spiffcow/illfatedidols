@@ -114,47 +114,35 @@
     });
   });
 
-  /* ---------- Contact form (Formspree AJAX) ---------- */
+  /* ---------- Contact form (composes an email to illfatedidols@gmail.com) ---------- */
   var form = document.querySelector(".contact-form");
   var status = form ? form.querySelector(".form-status") : null;
+  var CONTACT_EMAIL = "illfatedidols@gmail.com";
 
   if (form && status) {
     form.addEventListener("submit", function (e) {
-      // If the Formspree endpoint hasn't been configured yet, let the
-      // normal POST happen (or surface a hint). Detect placeholder.
-      var action = form.getAttribute("action") || "";
-      if (action.indexOf("FORMSPREE_ID") !== -1) {
-        e.preventDefault();
-        status.textContent = "Form not yet connected — add your Formspree ID.";
+      e.preventDefault();
+      var nameEl = document.getElementById("name");
+      var emailEl = document.getElementById("email");
+      var msgEl = document.getElementById("message");
+      var name = (nameEl && nameEl.value || "").trim();
+      var email = (emailEl && emailEl.value || "").trim();
+      var message = (msgEl && msgEl.value || "").trim();
+
+      if (!name || !email || !message) {
+        status.textContent = "Please fill in every field first.";
         status.className = "form-status err";
         return;
       }
 
-      e.preventDefault();
-      status.textContent = "Sending…";
-      status.className = "form-status";
+      var subject = "Ill-Fated Idols inquiry from " + name;
+      var body = "Name: " + name + "\nEmail: " + email + "\n\n" + message;
+      window.location.href = "mailto:" + CONTACT_EMAIL +
+        "?subject=" + encodeURIComponent(subject) +
+        "&body=" + encodeURIComponent(body);
 
-      var data = new FormData(form);
-      fetch(action, {
-        method: "POST",
-        body: data,
-        headers: { Accept: "application/json" }
-      })
-        .then(function (res) {
-          if (res.ok) {
-            form.reset();
-            status.textContent = "Your message has been received. We will answer in kind.";
-            status.className = "form-status ok";
-          } else {
-            return res.json().then(function (d) {
-              throw new Error(d && d.errors ? d.errors.map(function (x) { return x.message; }).join(", ") : "error");
-            });
-          }
-        })
-        .catch(function () {
-          status.textContent = "Something went wrong. Please email us instead.";
-          status.className = "form-status err";
-        });
+      status.textContent = "Opening your email app… if nothing happens, write to " + CONTACT_EMAIL + ".";
+      status.className = "form-status ok";
     });
   }
 })();
