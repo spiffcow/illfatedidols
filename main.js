@@ -50,13 +50,15 @@
   var lightbox = document.getElementById("lightbox");
   var lightboxImg = lightbox ? lightbox.querySelector(".lightbox-img") : null;
   var lightboxCap = lightbox ? lightbox.querySelector(".lightbox-caption") : null;
+  var lightboxDesc = lightbox ? lightbox.querySelector(".lightbox-desc") : null;
   var lightboxClose = lightbox ? lightbox.querySelector(".lightbox-close") : null;
 
-  function openLightbox(src, caption) {
+  function openLightbox(src, caption, desc) {
     if (!lightbox || !src) return; // placeholders with no image do nothing
     lightboxImg.src = src;
     lightboxImg.alt = caption || "";
     lightboxCap.textContent = caption || "";
+    if (lightboxDesc) lightboxDesc.textContent = desc || "";
     lightbox.classList.add("open");
     lightbox.setAttribute("aria-hidden", "false");
     document.body.style.overflow = "hidden";
@@ -71,7 +73,7 @@
 
   document.querySelectorAll(".gallery-item, .lamp-item").forEach(function (item) {
     item.addEventListener("click", function () {
-      openLightbox(item.getAttribute("data-full"), item.getAttribute("data-caption"));
+      openLightbox(item.getAttribute("data-full"), item.getAttribute("data-caption"), item.getAttribute("data-desc"));
     });
   });
   if (lightboxClose) lightboxClose.addEventListener("click", closeLightbox);
