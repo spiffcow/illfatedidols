@@ -86,6 +86,34 @@
     if (e.key === "Escape") closeLightbox();
   });
 
+  /* ---------- Lamp video autoplay (mobile-friendly) ---------- */
+  // Mobile browsers won't autoplay muted <video> reliably from markup alone.
+  // Force muted + inline, play when scrolled into view, and allow tap-to-toggle
+  // as a fallback (covers iOS Low Power Mode, which blocks autoplay entirely).
+  var lampVideos = document.querySelectorAll(".lamp-video video");
+  lampVideos.forEach(function (v) {
+    v.muted = true;
+    v.setAttribute("muted", "");
+    v.playsInline = true;
+    function tryPlay() {
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {}); // ignore autoplay rejections
+    }
+    if ("IntersectionObserver" in window) {
+      var vio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) tryPlay(); else v.pause();
+        });
+      }, { threshold: 0.25 });
+      vio.observe(v);
+    } else {
+      tryPlay();
+    }
+    v.addEventListener("click", function () {
+      if (v.paused) tryPlay(); else v.pause();
+    });
+  });
+
   /* ---------- Contact form (Formspree AJAX) ---------- */
   var form = document.querySelector(".contact-form");
   var status = form ? form.querySelector(".form-status") : null;
