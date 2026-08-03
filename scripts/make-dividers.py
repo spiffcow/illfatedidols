@@ -20,10 +20,10 @@ OUT = "images"
 COLOR = (0xDF, 0x70, 0xFF)
 S = 3  # supersample factor, downscaled with LANCZOS for clean edges
 
-DIMS = {"tentacle": (2400, 300), "eye": (2400, 180),
+DIMS = {"tentacle": (2400, 300), "eye": (2400, 180), "eyebrand": (2400, 180),
         "eyeslit": (2400, 140), "brandeye": (2400, 140), "rune": (2400, 120)}
-REACH = {"eye": 105, "eyeslit": 112, "brandeye": 58, "rune": 78}
-ORN_X = {"eye": 140, "eyeslit": 148, "brandeye": 112, "rune": 105}
+REACH = {"eye": 105, "eyebrand": 105, "eyeslit": 112, "brandeye": 58, "rune": 78}
+ORN_X = {"eye": 140, "eyebrand": 140, "eyeslit": 148, "brandeye": 112, "rune": 105}
 
 
 # ---------------------------------------------------------------- primitives
@@ -173,17 +173,38 @@ def draw_tentacle(d, W, H, mode):
 
 # --------------------------------------------------------------- other motifs
 
-def draw_eye(d, cx, cy):
+def eye_frame(d, cx, cy):
+    """Almond lids plus rays — shared by every eye variant."""
     for s in (1, -1):
         arc = bez((cx-72, cy), (cx-30, cy-38*s), (cx+30, cy-38*s), (cx+72, cy))
         stroke(d, arc, lambda t: 3.0 + 5.5 * math.sin(math.pi*t) ** 0.8)
-    d.ellipse([(cx-13)*S, (cy-19)*S, (cx+13)*S, (cy+19)*S], fill=255)
-    d.ellipse([(cx-4.5)*S, (cy-8)*S, (cx+4.5)*S, (cy+8)*S], fill=55)
     for dx in (-42, 0, 42):
         h = 26 if dx == 0 else 18
         for s in (1, -1):
             ray = [(cx + dx + dx*0.10*i/12.0, cy - s*(34 + h*i/12.0)) for i in range(13)]
             stroke(d, ray, lambda t: 3.4 * (1 - t) ** 1.2 + 0.5)
+
+
+def brand_glyph(d, cx, cy, R):
+    """The mark from between ILL and FATED. Ratios measured off the source
+    art: slit ellipse 0.565 of the disc diameter wide, 0.193 tall, centred.
+    Cut clean through so the page shows in the slit, as the logo does."""
+    d.ellipse([(cx-R)*S, (cy-R)*S, (cx+R)*S, (cy+R)*S], fill=255)
+    d.ellipse([(cx - 0.565*R)*S, (cy - 0.193*R)*S,
+               (cx + 0.565*R)*S, (cy + 0.193*R)*S], fill=0)
+
+
+def draw_eye(d, cx, cy):
+    eye_frame(d, cx, cy)
+    d.ellipse([(cx-13)*S, (cy-19)*S, (cx+13)*S, (cy+19)*S], fill=255)
+    # cut clean through — at partial alpha this read as a dark purple blob
+    d.ellipse([(cx-4.5)*S, (cy-8)*S, (cx+4.5)*S, (cy+8)*S], fill=0)
+
+
+def draw_eyebrand(d, cx, cy):
+    """The original eye's lids and rays, with the brand glyph as its iris."""
+    eye_frame(d, cx, cy)
+    brand_glyph(d, cx, cy, 18)
 
 
 def draw_eyeslit(d, cx, cy):
@@ -202,15 +223,8 @@ def draw_eyeslit(d, cx, cy):
                    (cx + s*98 + 3.4)*S, (cy+3.4)*S], fill=255)
 
 
-def draw_brandeye(d, cx, cy, R=30):
-    """The brand's own eye glyph - the mark between ILL and FATED in the
-    wordmark. Ratios measured off the source art: the slit is an ellipse
-    0.565 of the disc diameter wide and 0.193 tall, dead centre. Cut rather
-    than filled, so the page background shows through exactly as it does in
-    the logo."""
-    d.ellipse([(cx-R)*S, (cy-R)*S, (cx+R)*S, (cy+R)*S], fill=255)
-    d.ellipse([(cx - 0.565*R)*S, (cy - 0.193*R)*S,
-               (cx + 0.565*R)*S, (cy + 0.193*R)*S], fill=0)
+def draw_brandeye(d, cx, cy):
+    brand_glyph(d, cx, cy, 30)
     for s in (1, -1):
         d.ellipse([(cx + s*90 - 3.4)*S, (cy-3.4)*S,
                    (cx + s*90 + 3.4)*S, (cy+3.4)*S], fill=255)
@@ -225,7 +239,7 @@ def draw_rune(d, cx, cy):
                    (cx + s*62 + 3.6)*S, (cy+3.6)*S], fill=255)
 
 
-DRAW = {"eye": draw_eye, "eyeslit": draw_eyeslit,
+DRAW = {"eye": draw_eye, "eyebrand": draw_eyebrand, "eyeslit": draw_eyeslit,
         "brandeye": draw_brandeye, "rune": draw_rune}
 
 
