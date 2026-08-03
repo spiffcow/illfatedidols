@@ -302,6 +302,17 @@ a:hover { color: #e3b6ff; }
   margin: 0 auto 3rem;
 }
 
+/* ---------- Section dividers ---------- */
+/* Sits at the top of a section rather than between two of them, so it
+   inherits that section's background — dropped in the gap it would expose
+   a strip of body colour between the differently-tinted sections. */
+.divider {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0 auto clamp(2rem, 5vw, 3.5rem);
+}
+
 /* ---------- About ---------- */
 .about { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%); }
 .about-grid {
