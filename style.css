@@ -314,7 +314,10 @@ a:hover { color: #e3b6ff; }
 }
 
 /* ---------- About ---------- */
-.about { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%); }
+.about {
+  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+  padding-bottom: clamp(1.25rem, 3vw, 2.25rem);
+}
 .about-grid {
   display: grid;
   grid-template-columns: 1.5fr 1fr;
@@ -569,7 +572,10 @@ a:hover { color: #e3b6ff; }
 }
 
 /* ---------- Contact ---------- */
-.contact { background: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 100%); }
+.contact {
+  background: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 100%);
+  padding-bottom: clamp(1.25rem, 3vw, 2.25rem);
+}
 .contact-form {
   max-width: 620px;
   margin: 0 auto;
@@ -623,7 +629,7 @@ a:hover { color: #e3b6ff; }
 /* ============================== FOOTER ============================== */
 .site-footer {
   text-align: center;
-  padding: 3rem 1.5rem 2.5rem;
+  padding: 3rem 1.5rem 1.75rem;
   background: var(--bg);
   border-top: 1px solid var(--line);
 }
