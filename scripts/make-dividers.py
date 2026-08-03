@@ -4,11 +4,11 @@ Generates the decorative section-divider PNGs in images/.
 Colour is sampled from the logo wordmark (#DF70FF), not the CSS --accent,
 so the rules match the brand mark exactly.
 
-    python scripts/make-dividers.py            # write the six dividers
+    python scripts/make-dividers.py            # write the dividers
     python scripts/make-dividers.py preview    # ...and a contact sheet
 
 Each motif is emitted twice: "center" (symmetric, fades out both ends) and
-"left" (ornament at the left margin, rule trails off to the right).
+"left" (ornament at the left margin, trailing off to the right).
 """
 
 import math
@@ -20,10 +20,12 @@ OUT = "images"
 COLOR = (0xDF, 0x70, 0xFF)
 S = 3  # supersample factor, downscaled with LANCZOS for clean edges
 
-DIMS = {"flourish": (2400, 240), "eye": (2400, 180), "rune": (2400, 120)}
-REACH = {"flourish": 330, "eye": 105, "rune": 78}
-ORN_X = {"flourish": 370, "eye": 140, "rune": 105}
+DIMS = {"tentacle": (2400, 300), "eye": (2400, 180), "rune": (2400, 120)}
+REACH = {"eye": 105, "rune": 78}
+ORN_X = {"eye": 140, "rune": 105}
 
+
+# ---------------------------------------------------------------- primitives
 
 def bez(p0, p1, p2, p3, n=260):
     o = []
@@ -33,25 +35,6 @@ def bez(p0, p1, p2, p3, n=260):
         o.append((m*m*m*p0[0] + 3*m*m*t*p1[0] + 3*m*t*t*p2[0] + t*t*t*p3[0],
                   m*m*m*p0[1] + 3*m*m*t*p1[1] + 3*m*t*t*p2[1] + t*t*t*p3[1]))
     return o
-
-
-def curl(x0, y0, a0, length, k0, k1, n=300, flip=1, p=2):
-    """Centreline whose turn rate ramps up along its length, so the tip
-    spirals — that curl is what makes the shape read as a tentacle.
-
-    A high `p` keeps the body nearly straight and saves almost all the
-    turning for the last stretch; low `p` arcs the whole length (which
-    reads as a flourish, not a limb)."""
-    ds = length / n
-    x, y, a = x0, y0, a0
-    pts = [(x, y)]
-    for i in range(n):
-        t = i / n
-        a += (k0 + (k1 - k0) * t ** p) * ds
-        x += math.cos(a) * ds * flip
-        y += math.sin(a) * ds
-        pts.append((x, y))
-    return pts
 
 
 def taper(pts, wfun):
@@ -82,23 +65,30 @@ def rule(d, x0, x1, cy, w0, w1, v=255):
     stroke(d, pts, lambda t: w0 + (w1 - w0) * t, v)
 
 
-def suckers(d, pts, wfun, side, count, t0, t1, v=70):
+def normal_at(pts, i):
+    n = len(pts)
+    x, y = pts[i]
+    if i == 0:
+        dx, dy = pts[1][0] - x, pts[1][1] - y
+    elif i == n - 1:
+        dx, dy = x - pts[i-1][0], y - pts[i-1][1]
+    else:
+        dx, dy = pts[i+1][0] - pts[i-1][0], pts[i+1][1] - pts[i-1][1]
+    m = math.hypot(dx, dy) or 1.0
+    return -dy / m, dx / m
+
+
+def suckers(d, pts, wfun, side, count, t0, t1, v=70, rf=0.20, off=0.21):
+    """Row of suckers hugging one edge. v=0 cuts them out of the silhouette."""
     n = len(pts)
     for k in range(count):
         t = t0 + (t1 - t0) * k / (count - 1)
         i = int(t * (n - 1))
         x, y = pts[i]
-        if i == 0:
-            dx, dy = pts[1][0] - x, pts[1][1] - y
-        elif i == n - 1:
-            dx, dy = x - pts[i-1][0], y - pts[i-1][1]
-        else:
-            dx, dy = pts[i+1][0] - pts[i-1][0], pts[i+1][1] - pts[i-1][1]
-        m = math.hypot(dx, dy) or 1.0
-        nx, ny = -dy / m, dx / m
+        nx, ny = normal_at(pts, i)
         w = wfun(t)
-        r = max(1.3, w * 0.20)
-        o = w * 0.21 * side
+        r = max(1.1, w * rf)
+        o = w * off * side
         cx, cy = (x + nx*o) * S, (y + ny*o) * S
         d.ellipse([cx - r*S, cy - r*S, cx + r*S, cy + r*S], fill=v)
 
@@ -108,15 +98,79 @@ def diamond(d, cx, cy, rx, ry, v=255):
                ((cx+rx)*S, cy*S), (cx*S, (cy+ry)*S)], fill=v)
 
 
-def draw_flourish(d, cx, cy):
-    wf = lambda t: 23 * (1 - t) ** 1.5 + 1.4
-    for s in (1, -1):
-        arm = curl(cx + 16*s, cy + 2, -0.34, 340, 0.0022, 0.0345, flip=s)
-        stroke(d, arm, wf)
-        suckers(d, arm, wf, -s, 11, 0.08, 0.72)
-    diamond(d, cx, cy, 16, 9)
-    d.ellipse([(cx-5)*S, (cy-5)*S, (cx+5)*S, (cy+5)*S], fill=60)
+# ----------------------------------------------------------------- tentacle
 
+def limb(length, curl_l, curl_r, undul, freq, a0=0.0, n=900, e=0.26):
+    """Integrate a centreline from a curvature profile.
+
+    The sine term undulates the body; the two end terms ramp curvature up
+    steeply over the outer `e` of the length, which winds each tip into a
+    tight spiral. Opposite signs make the two curls face opposite ways, the
+    way real tentacle art does it.
+    """
+    ds = length / n
+    x = y = 0.0
+    a = a0
+    pts = [(x, y)]
+    for i in range(n):
+        t = i / n
+        k = undul * math.sin(2 * math.pi * freq * t)
+        if t < e:
+            k -= curl_l * ((e - t) / e) ** 2.4
+        if t > 1 - e:
+            k += curl_r * ((t - (1 - e)) / e) ** 2.4
+        a += k * ds
+        x += math.cos(a) * ds
+        y += math.sin(a) * ds
+        pts.append((x, y))
+    return pts
+
+
+def level(pts, t0=0.32, t1=0.68):
+    """A tip spiral dumps several radians of rotation into the running angle,
+    which leaves the whole limb tilted. Rotate so the mid-body runs flat, and
+    mirror if that left it pointing backwards."""
+    n = len(pts) - 1
+    x0, y0 = pts[int(t0 * n)]
+    x1, y1 = pts[int(t1 * n)]
+    a = -math.atan2(y1 - y0, x1 - x0)
+    c, s = math.cos(a), math.sin(a)
+    out = [(x*c - y*s, x*s + y*c) for x, y in pts]
+    if out[-1][0] < out[0][0]:
+        out = [(-x, y) for x, y in out]
+    return out
+
+
+def fit(pts, x0, x1, cy, maxh):
+    xs = [p[0] for p in pts]
+    ys = [p[1] for p in pts]
+    sx = (x1 - x0) / (max(xs) - min(xs))
+    sy = maxh / max(1e-6, (max(ys) - min(ys)))
+    s = min(sx, sy)
+    ox = x0 - min(xs) * s + (x1 - x0 - (max(xs) - min(xs)) * s) / 2
+    oy = cy - (min(ys) + max(ys)) / 2 * s
+    return [(x*s + ox, y*s + oy) for x, y in pts], s
+
+
+def draw_tentacle(d, W, H, mode):
+    if mode == "center":
+        pts = limb(2000, curl_l=0.100, curl_r=0.100, undul=0.0008, freq=1.5, e=0.13)
+        pts, s = fit(level(pts), 70, W - 70, H / 2, H - 30)
+        wf = lambda t: (34 * math.sin(math.pi * t) ** 0.60 + 1.5) * s
+        t0, t1 = 0.07, 0.93
+    else:
+        # heavy base running off the left edge, tapering to a spiral tip right
+        pts = limb(2000, curl_l=0.0, curl_r=0.105, undul=0.0008, freq=1.2, e=0.13)
+        pts, s = fit(level(pts), -12, W * 0.84, H / 2, H - 30)
+        wf = lambda t: (34 * (1 - t) ** 0.80 + 1.4) * s
+        t0, t1 = 0.02, 0.93
+    stroke(d, pts, wf)
+    # off + rf ~= 0.5 lands the row of suckers right up against one edge,
+    # the way the reference art does it - centred, they read as polka dots
+    suckers(d, pts, wf, 1, 30, t0, t1, v=0, rf=0.17, off=0.30)
+
+
+# --------------------------------------------------------------- other motifs
 
 def draw_eye(d, cx, cy):
     for s in (1, -1):
@@ -140,13 +194,18 @@ def draw_rune(d, cx, cy):
                    (cx + s*62 + 3.6)*S, (cy+3.6)*S], fill=255)
 
 
-DRAW = {"flourish": draw_flourish, "eye": draw_eye, "rune": draw_rune}
+DRAW = {"eye": draw_eye, "rune": draw_rune}
 
 
-def fade(mask, mode):
+# -------------------------------------------------------------------- output
+
+def fade(mask, mode, name):
     W, H = mask.size
     px = mask.load()
     f = [1.0] * W
+    if name == "tentacle":
+        # the spiral curls *are* the ends here - fading one just amputates it
+        return mask
     if mode == "center":
         e = int(W * 0.19)
         for x in range(W):
@@ -171,32 +230,34 @@ def fade(mask, mode):
 
 def build(name, mode):
     W, H = DIMS[name]
-    r = REACH[name]
     mask = Image.new("L", (W*S, H*S), 0)
     d = ImageDraw.Draw(mask)
-    cx = W // 2 if mode == "center" else ORN_X[name]
-    cy = H // 2
-    if mode == "center":
-        rule(d, 40, cx - r, cy, 2.2, 4.0)
-        rule(d, cx + r, W - 40, cy, 4.0, 2.2)
+    if name == "tentacle":
+        draw_tentacle(d, W, H, mode)
     else:
-        rule(d, cx + r, W - 30, cy, 4.0, 2.0)
-    DRAW[name](d, cx, cy)
+        r, cy = REACH[name], H // 2
+        cx = W // 2 if mode == "center" else ORN_X[name]
+        if mode == "center":
+            rule(d, 40, cx - r, cy, 2.2, 4.0)
+            rule(d, cx + r, W - 40, cy, 4.0, 2.2)
+        else:
+            rule(d, cx + r, W - 30, cy, 4.0, 2.0)
+        DRAW[name](d, cx, cy)
     mask = mask.resize((W, H), Image.LANCZOS)
-    fade(mask, mode)
+    fade(mask, mode, name)
     img = Image.new("RGBA", (W, H), COLOR + (0,))
     img.putalpha(mask)
     return img
 
 
 def main():
-    variants = [(n, m) for n in DIMS for m in ("center", "left")]
     built = []
-    for name, mode in variants:
-        img = build(name, mode)
-        img.save(f"{OUT}/divider-{name}-{mode}.png", optimize=True)
-        built.append(img)
-        print(f"divider-{name}-{mode}.png  {img.width}x{img.height}")
+    for name in DIMS:
+        for mode in ("center", "left"):
+            img = build(name, mode)
+            img.save(f"{OUT}/divider-{name}-{mode}.png", optimize=True)
+            built.append(img)
+            print(f"divider-{name}-{mode}.png  {img.width}x{img.height}")
 
     if "preview" in sys.argv:
         PW, pad = 1300, 26
