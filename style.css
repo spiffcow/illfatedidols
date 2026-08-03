@@ -79,14 +79,14 @@ a:hover { color: #e3b6ff; }
   white-space: nowrap;
 }
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  background: var(--accent);
   color: #1a0526;
-  box-shadow: 0 6px 24px rgba(199, 112, 238, 0.35);
+  box-shadow: 0 6px 24px rgba(223, 112, 255, 0.35);
 }
 .btn-primary:hover {
   color: #1a0526;
   transform: translateY(-2px);
-  box-shadow: 0 10px 32px rgba(199, 112, 238, 0.55);
+  box-shadow: 0 10px 32px rgba(223, 112, 255, 0.55);
 }
 .btn-ghost {
   background: transparent;
