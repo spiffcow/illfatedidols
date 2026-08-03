@@ -272,7 +272,7 @@ a:hover { color: #e3b6ff; }
 
 /* ============================== SECTIONS ============================== */
 .section {
-  padding: clamp(3.5rem, 9vw, 7rem) clamp(1rem, 4vw, 2.5rem);
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1rem, 4vw, 2.5rem);
 }
 .section-inner {
   max-width: var(--maxw);
@@ -299,7 +299,7 @@ a:hover { color: #e3b6ff; }
   text-align: center;
   color: var(--muted);
   max-width: 60ch;
-  margin: 0 auto 3rem;
+  margin: 0 auto 2rem;
 }
 
 /* ---------- Section dividers ---------- */
@@ -310,7 +310,7 @@ a:hover { color: #e3b6ff; }
   display: block;
   width: 100%;
   height: auto;
-  margin: 0 auto clamp(2rem, 5vw, 3.5rem);
+  margin: 0 auto clamp(1.25rem, 3vw, 2.25rem);
 }
 
 /* ---------- About ---------- */
@@ -473,7 +473,7 @@ a:hover { color: #e3b6ff; }
   text-transform: uppercase;
   font-size: .85rem;
 }
-.gallery-cta { text-align: center; margin-top: 3rem; }
+.gallery-cta { text-align: center; margin-top: 2.25rem; }
 
 /* ---------- Lamps ---------- */
 .lamps {
