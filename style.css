@@ -331,6 +331,7 @@ a:hover { color: #e3b6ff; }
   margin-top: 0;
 }
 .about-copy p { color: var(--muted); }
+.about-copy p:not(.lede) { text-align: justify; }
 .about-features {
   list-style: none;
   margin: 0;
