@@ -787,3 +787,7 @@ a:hover { color: #e3b6ff; }
 @media (max-width: 480px) {
   .gallery-grid { grid-template-columns: 1fr; }
 }
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .scroll-cue { display: none; }
+}
