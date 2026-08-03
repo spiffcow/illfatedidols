@@ -781,6 +781,7 @@ a:hover { color: #e3b6ff; }
   .hero-logo { width: 74vw; max-width: 300px; }
   .hero-actions { flex-direction: column; align-items: center; }
   .hero-actions .btn { width: 100%; max-width: 300px; }
+  .hero-bg { object-position: center 40%; }
 }
 
 @media (max-width: 480px) {
