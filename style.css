@@ -50,7 +50,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 1.05rem;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
@@ -326,7 +326,7 @@ a:hover { color: #e3b6ff; }
   margin-top: 2.5rem;
 }
 .about-copy .lede {
-  font-size: 1.3rem;
+  font-size: 1.35rem;
   color: var(--text);
   margin-top: 0;
 }
@@ -345,7 +345,7 @@ a:hover { color: #e3b6ff; }
   gap: .75rem;
   padding: .65rem 0;
   font-family: var(--font-display);
-  font-size: .95rem;
+  font-size: 1rem;
   letter-spacing: .02em;
   border-bottom: 1px solid var(--line);
 }
@@ -362,7 +362,7 @@ a:hover { color: #e3b6ff; }
 /* ---------- Makers ---------- */
 .makers { background: var(--bg); }
 .makers-intro {
-  font-size: 1.15rem;
+  font-size: 1.2rem;
   color: var(--text);
 }
 .makers-intro strong {
@@ -429,7 +429,7 @@ a:hover { color: #e3b6ff; }
 }
 .maker-bio {
   color: var(--muted);
-  font-size: .98rem;
+  font-size: 1.05rem;
   margin: 0;
 }
 
@@ -523,7 +523,7 @@ a:hover { color: #e3b6ff; }
   font-family: var(--font-display);
   letter-spacing: .05em;
   color: var(--muted);
-  font-size: .95rem;
+  font-size: 1.05rem;
 }
 
 .lamp-grid {
@@ -585,7 +585,7 @@ a:hover { color: #e3b6ff; }
 .field { display: grid; gap: .4rem; }
 .field label {
   font-family: var(--font-display);
-  font-size: .85rem;
+  font-size: .9rem;
   letter-spacing: .06em;
   text-transform: uppercase;
   color: var(--muted);
@@ -594,7 +594,7 @@ a:hover { color: #e3b6ff; }
 .field textarea {
   width: 100%;
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: var(--text);
   background: var(--panel);
   border: 1px solid var(--line);
@@ -616,7 +616,7 @@ a:hover { color: #e3b6ff; }
   min-height: 1.2em;
   margin: 0;
   font-family: var(--font-display);
-  font-size: .9rem;
+  font-size: .95rem;
 }
 .form-status.ok { color: #7ee0a8; }
 .form-status.err { color: #ff8aa8; }
@@ -668,14 +668,14 @@ a:hover { color: #e3b6ff; }
 }
 .credit {
   color: var(--muted);
-  font-size: .85rem;
+  font-size: .9rem;
   margin: 0 0 .4rem;
   letter-spacing: .03em;
 }
 .credit a { color: var(--accent); }
 .copyright {
   color: var(--muted);
-  font-size: .85rem;
+  font-size: .9rem;
   margin: 0;
   letter-spacing: .03em;
 }
@@ -716,7 +716,7 @@ a:hover { color: #e3b6ff; }
   margin: 0;
   text-align: center;
   color: var(--muted);
-  font-size: .95rem;
+  font-size: 1rem;
   line-height: 1.5;
 }
 .lightbox-close {
