@@ -20,9 +20,10 @@ OUT = "images"
 COLOR = (0xDF, 0x70, 0xFF)
 S = 3  # supersample factor, downscaled with LANCZOS for clean edges
 
-DIMS = {"tentacle": (2400, 300), "eye": (2400, 180), "rune": (2400, 120)}
-REACH = {"eye": 105, "rune": 78}
-ORN_X = {"eye": 140, "rune": 105}
+DIMS = {"tentacle": (2400, 300), "eye": (2400, 180),
+        "eyeslit": (2400, 140), "rune": (2400, 120)}
+REACH = {"eye": 105, "eyeslit": 112, "rune": 78}
+ORN_X = {"eye": 140, "eyeslit": 148, "rune": 105}
 
 
 # ---------------------------------------------------------------- primitives
@@ -185,6 +186,22 @@ def draw_eye(d, cx, cy):
             stroke(d, ray, lambda t: 3.4 * (1 - t) ** 1.2 + 0.5)
 
 
+def draw_eyeslit(d, cx, cy):
+    """As draw_eye, but with a cephalopod slit pupil and no radiating rays -
+    a round pupil plus rays reads as an all-seeing/mystic eye, which lands
+    very close to Welcome to Night Vale's mark. A horizontal slit reads as a
+    creature instead, and matches the octopus the brand is built on."""
+    for s in (1, -1):
+        arc = bez((cx-80, cy), (cx-32, cy-41*s), (cx+32, cy-41*s), (cx+80, cy))
+        stroke(d, arc, lambda t: 3.2 + 6.0 * math.sin(math.pi*t) ** 0.8)
+    d.ellipse([(cx-21)*S, (cy-19)*S, (cx+21)*S, (cy+19)*S], fill=255)
+    d.rounded_rectangle([(cx-11)*S, (cy-3.2)*S, (cx+11)*S, (cy+3.2)*S],
+                        radius=3.2*S, fill=0)
+    for s in (1, -1):
+        d.ellipse([(cx + s*98 - 3.4)*S, (cy-3.4)*S,
+                   (cx + s*98 + 3.4)*S, (cy+3.4)*S], fill=255)
+
+
 def draw_rune(d, cx, cy):
     diamond(d, cx, cy, 26, 13)
     diamond(d, cx, cy, 15, 7.4, 0)
@@ -194,7 +211,7 @@ def draw_rune(d, cx, cy):
                    (cx + s*62 + 3.6)*S, (cy+3.6)*S], fill=255)
 
 
-DRAW = {"eye": draw_eye, "rune": draw_rune}
+DRAW = {"eye": draw_eye, "eyeslit": draw_eyeslit, "rune": draw_rune}
 
 
 # -------------------------------------------------------------------- output
