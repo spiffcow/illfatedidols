@@ -21,9 +21,9 @@ COLOR = (0xDF, 0x70, 0xFF)
 S = 3  # supersample factor, downscaled with LANCZOS for clean edges
 
 DIMS = {"tentacle": (2400, 300), "eye": (2400, 180),
-        "eyeslit": (2400, 140), "rune": (2400, 120)}
-REACH = {"eye": 105, "eyeslit": 112, "rune": 78}
-ORN_X = {"eye": 140, "eyeslit": 148, "rune": 105}
+        "eyeslit": (2400, 140), "brandeye": (2400, 140), "rune": (2400, 120)}
+REACH = {"eye": 105, "eyeslit": 112, "brandeye": 58, "rune": 78}
+ORN_X = {"eye": 140, "eyeslit": 148, "brandeye": 112, "rune": 105}
 
 
 # ---------------------------------------------------------------- primitives
@@ -202,6 +202,20 @@ def draw_eyeslit(d, cx, cy):
                    (cx + s*98 + 3.4)*S, (cy+3.4)*S], fill=255)
 
 
+def draw_brandeye(d, cx, cy, R=30):
+    """The brand's own eye glyph - the mark between ILL and FATED in the
+    wordmark. Ratios measured off the source art: the slit is an ellipse
+    0.565 of the disc diameter wide and 0.193 tall, dead centre. Cut rather
+    than filled, so the page background shows through exactly as it does in
+    the logo."""
+    d.ellipse([(cx-R)*S, (cy-R)*S, (cx+R)*S, (cy+R)*S], fill=255)
+    d.ellipse([(cx - 0.565*R)*S, (cy - 0.193*R)*S,
+               (cx + 0.565*R)*S, (cy + 0.193*R)*S], fill=0)
+    for s in (1, -1):
+        d.ellipse([(cx + s*90 - 3.4)*S, (cy-3.4)*S,
+                   (cx + s*90 + 3.4)*S, (cy+3.4)*S], fill=255)
+
+
 def draw_rune(d, cx, cy):
     diamond(d, cx, cy, 26, 13)
     diamond(d, cx, cy, 15, 7.4, 0)
@@ -211,7 +225,8 @@ def draw_rune(d, cx, cy):
                    (cx + s*62 + 3.6)*S, (cy+3.6)*S], fill=255)
 
 
-DRAW = {"eye": draw_eye, "eyeslit": draw_eyeslit, "rune": draw_rune}
+DRAW = {"eye": draw_eye, "eyeslit": draw_eyeslit,
+        "brandeye": draw_brandeye, "rune": draw_rune}
 
 
 # -------------------------------------------------------------------- output
