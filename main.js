@@ -71,7 +71,8 @@
     document.body.style.overflow = "";
   }
 
-  document.querySelectorAll(".gallery-item, .lamp-item").forEach(function (item) {
+  // Gallery images are static — only the lamps still open the lightbox.
+  document.querySelectorAll(".lamp-item").forEach(function (item) {
     item.addEventListener("click", function () {
       openLightbox(item.getAttribute("data-full"), item.getAttribute("data-caption"), item.getAttribute("data-desc"));
     });
