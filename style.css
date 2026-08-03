@@ -188,21 +188,21 @@ a:hover { color: #e3b6ff; }
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 58%;
+  object-position: center 68%;
   z-index: 0;
   animation: heroZoom 22s ease-out both;
 }
 @keyframes heroZoom {
-  from { transform: scale(1.08); }
-  to   { transform: scale(1); }
+  from { transform: scale(1.14); }
+  to   { transform: scale(1.06); }
 }
 .hero-overlay {
   position: absolute;
   inset: 0;
   z-index: 0;
   background:
-    radial-gradient(90% 70% at 50% 40%, rgba(21, 4, 33, 0.35) 0%, rgba(21, 4, 33, 0.72) 70%, var(--bg) 100%),
-    linear-gradient(180deg, rgba(21, 4, 33, 0.55) 0%, rgba(21, 4, 33, 0.35) 45%, var(--bg) 100%);
+    radial-gradient(95% 78% at 50% 42%, rgba(21, 4, 33, 0.28) 0%, rgba(21, 4, 33, 0.6) 78%, var(--bg) 100%),
+    linear-gradient(180deg, rgba(21, 4, 33, 0.5) 0%, rgba(21, 4, 33, 0.25) 55%, var(--bg) 100%);
   pointer-events: none;
 }
 .hero-inner {
