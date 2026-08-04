@@ -389,7 +389,7 @@ a:hover { color: #e3b6ff; }
     background-origin: border-box;
     background:
       linear-gradient(to right, var(--panel) 35%, rgba(38, 11, 58, .45) 60%, transparent 85%),
-      url("images/about-tentacles-accent.png") no-repeat center / clamp(200px, 24vw, 340px) auto,
+      url("images/about-tentacles-accent.png") no-repeat right center / clamp(200px, 24vw, 340px) auto,
       var(--panel);
   }
   .about-features li {
