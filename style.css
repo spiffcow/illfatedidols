@@ -315,8 +315,6 @@ a:hover { color: #e3b6ff; }
 
 /* ---------- About ---------- */
 .about {
-  position: relative;
-  overflow: hidden;
   background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
   padding-bottom: clamp(1.25rem, 3vw, 2.25rem);
 }
@@ -336,7 +334,6 @@ a:hover { color: #e3b6ff; }
 .about-copy p:not(.lede) { text-align: justify; }
 .about-features {
   position: relative;
-  z-index: 1;
   list-style: none;
   margin: 0;
   padding: 1.5rem;
@@ -344,10 +341,9 @@ a:hover { color: #e3b6ff; }
   border: 1px solid var(--line);
   border-radius: var(--radius);
 }
-.about-features-deco {
-  display: none;
-}
 .about-features li {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: .75rem;
@@ -366,19 +362,16 @@ a:hover { color: #e3b6ff; }
   background: var(--accent);
   box-shadow: 0 0 12px var(--accent);
 }
-/* Desktop-only accent: tentacles creeping in from the edge of the screen, behind the features card. */
+/* Desktop-only accent: tentacle art tucked inside the card, faded out under the text. */
 @media (min-width: 861px) {
-  .about-features-deco {
-    display: block;
-    position: absolute;
-    top: clamp(390px, 250px + 16vw, 460px);
-    right: 0;
-    transform: translateY(-50%);
-    width: clamp(120px, 12vw, 180px);
-    z-index: 0;
-    opacity: .85;
-    filter: drop-shadow(0 0 24px rgba(223, 112, 255, .3));
-    pointer-events: none;
+  .about-features {
+    background:
+      linear-gradient(to right, var(--panel) 40%, rgba(38, 11, 58, .45) 70%, transparent 100%),
+      url("images/about-tentacles-accent.png") no-repeat bottom right / 210px auto,
+      var(--panel);
+  }
+  .about-features li {
+    border-bottom-color: rgba(199, 112, 238, .08);
   }
 }
 
