@@ -115,10 +115,10 @@
     });
   });
 
-  /* ---------- Contact form (composes an email to illfatedidols@gmail.com) ---------- */
+  /* ---------- Contact form (composes an email to contact@illfatedidols.com) ---------- */
   var form = document.querySelector(".contact-form");
   var status = form ? form.querySelector(".form-status") : null;
-  var CONTACT_EMAIL = "illfatedidols@gmail.com";
+  var CONTACT_EMAIL = "contact@illfatedidols.com";
 
   if (form && status) {
     form.addEventListener("submit", function (e) {
