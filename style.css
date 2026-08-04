@@ -378,14 +378,9 @@ a:hover { color: #e3b6ff; }
   background: var(--accent);
   box-shadow: 0 0 12px var(--accent);
 }
-/* Desktop-only accent: card bleeds to the screen edge, tentacle art tucked inside it. */
+/* Desktop-only accent: tentacle art tucked inside the card, faded out under the text. */
 @media (min-width: 861px) {
   .about-features-card {
-    --edge-gap: max(clamp(1rem, 4vw, 2.5rem), (100vw - var(--maxw)) / 2);
-    width: calc(100% + var(--edge-gap));
-    border-right: none;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
     background-origin: border-box;
     background:
       linear-gradient(to right, var(--panel) 35%, rgba(38, 11, 58, .45) 60%, transparent 85%),
