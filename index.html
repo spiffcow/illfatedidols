@@ -184,11 +184,12 @@
         <h2 class="section-title" id="contact">Summon Us</h2>
         <p class="section-sub">Commissions, questions, or custom horrors? Send word.</p>
 
-        <!-- CONTACT FORM — JS composes an email to contact@illfatedidols.com on submit.
-             The mailto action is a no-JS fallback. To switch to background sending
-             (no email app needed), sign up a free Formspree/Web3Forms form with
-             contact@illfatedidols.com and swap the action + handler. -->
-        <form class="contact-form" action="mailto:contact@illfatedidols.com" method="POST" enctype="text/plain">
+        <!-- CONTACT FORM — submits to Web3Forms via background AJAX (main.js) and
+             delivers to contact@illfatedidols.com. The plain POST is a no-JS fallback. -->
+        <form class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="7d1e9ca1-3327-4761-9b06-113a8eaf06d1" />
+          <input type="hidden" name="subject" value="New inquiry from illfatedidols.com" />
+          <input type="hidden" name="from_name" value="Ill-Fated Idols website" />
           <div class="field">
             <label for="name">Name</label>
             <input type="text" id="name" name="name" required autocomplete="name" />
@@ -201,8 +202,8 @@
             <label for="message">Message</label>
             <textarea id="message" name="message" rows="6" required></textarea>
           </div>
-          <!-- honeypot for spam -->
-          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" />
+          <!-- honeypot for spam (Web3Forms checks this box name) -->
+          <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp" style="display:none !important" />
           <button type="submit" class="btn btn-primary">Send the Message</button>
           <p class="form-status" role="status" aria-live="polite"></p>
         </form>

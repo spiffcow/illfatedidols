@@ -115,35 +115,50 @@
     });
   });
 
-  /* ---------- Contact form (composes an email to contact@illfatedidols.com) ---------- */
+  /* ---------- Contact form (Web3Forms background submit → contact@illfatedidols.com) ---------- */
   var form = document.querySelector(".contact-form");
   var status = form ? form.querySelector(".form-status") : null;
-  var CONTACT_EMAIL = "contact@illfatedidols.com";
 
   if (form && status) {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+
       var nameEl = document.getElementById("name");
       var emailEl = document.getElementById("email");
       var msgEl = document.getElementById("message");
-      var name = (nameEl && nameEl.value || "").trim();
-      var email = (emailEl && emailEl.value || "").trim();
-      var message = (msgEl && msgEl.value || "").trim();
-
-      if (!name || !email || !message) {
+      if (!(nameEl && nameEl.value.trim()) ||
+          !(emailEl && emailEl.value.trim()) ||
+          !(msgEl && msgEl.value.trim())) {
         status.textContent = "Please fill in every field first.";
         status.className = "form-status err";
         return;
       }
 
-      var subject = "Ill-Fated Idols inquiry from " + name;
-      var body = "Name: " + name + "\nEmail: " + email + "\n\n" + message;
-      window.location.href = "mailto:" + CONTACT_EMAIL +
-        "?subject=" + encodeURIComponent(subject) +
-        "&body=" + encodeURIComponent(body);
+      var btn = form.querySelector("button[type=submit]");
+      if (btn) btn.disabled = true;
+      status.textContent = "Sending…";
+      status.className = "form-status";
 
-      status.textContent = "Opening your email app… if nothing happens, write to " + CONTACT_EMAIL + ".";
-      status.className = "form-status ok";
+      fetch(form.action, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new FormData(form)
+      })
+        .then(function (res) { return res.json().then(function (d) { return { ok: res.ok, d: d }; }); })
+        .then(function (r) {
+          if (r.ok && r.d && r.d.success) {
+            form.reset();
+            status.textContent = "Your message has crossed the void. We'll answer soon.";
+            status.className = "form-status ok";
+          } else {
+            throw new Error((r.d && r.d.message) || "error");
+          }
+        })
+        .catch(function () {
+          status.textContent = "Something went wrong — please email contact@illfatedidols.com instead.";
+          status.className = "form-status err";
+        })
+        .then(function () { if (btn) btn.disabled = false; });
     });
   }
 })();
