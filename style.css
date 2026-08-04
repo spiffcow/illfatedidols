@@ -315,6 +315,8 @@ a:hover { color: #e3b6ff; }
 
 /* ---------- About ---------- */
 .about {
+  position: relative;
+  overflow: hidden;
   background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
   padding-bottom: clamp(1.25rem, 3vw, 2.25rem);
 }
@@ -332,9 +334,6 @@ a:hover { color: #e3b6ff; }
 }
 .about-copy p { color: var(--muted); }
 .about-copy p:not(.lede) { text-align: justify; }
-.about-features-wrap {
-  position: relative;
-}
 .about-features {
   position: relative;
   z-index: 1;
@@ -367,18 +366,18 @@ a:hover { color: #e3b6ff; }
   background: var(--accent);
   box-shadow: 0 0 12px var(--accent);
 }
-/* Desktop-only accent: tentacles creeping out from behind the features card. */
+/* Desktop-only accent: tentacles creeping in from the edge of the screen, behind the features card. */
 @media (min-width: 861px) {
   .about-features-deco {
     display: block;
     position: absolute;
-    top: 50%;
-    left: 100%;
-    width: min(60vw, 280px);
-    transform: translate(-40%, -50%);
+    top: clamp(390px, 250px + 16vw, 460px);
+    right: 0;
+    transform: translateY(-50%);
+    width: clamp(120px, 12vw, 180px);
     z-index: 0;
-    opacity: .9;
-    filter: drop-shadow(0 0 28px rgba(223, 112, 255, .3));
+    opacity: .85;
+    filter: drop-shadow(0 0 24px rgba(223, 112, 255, .3));
     pointer-events: none;
   }
 }
