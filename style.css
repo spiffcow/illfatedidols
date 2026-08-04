@@ -335,14 +335,27 @@ a:hover { color: #e3b6ff; }
 }
 .about-copy p { color: var(--muted); }
 .about-copy p:not(.lede) { text-align: justify; }
-.about-features {
+.about-features-card {
   position: relative;
-  list-style: none;
-  margin: 0;
   padding: 1.5rem;
   background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius);
+}
+.about-features-title {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--text);
+  margin: 0 0 .75rem;
+}
+.about-features {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 .about-features li {
   position: relative;
@@ -367,7 +380,7 @@ a:hover { color: #e3b6ff; }
 }
 /* Desktop-only accent: card bleeds to the screen edge, tentacle art tucked inside it. */
 @media (min-width: 861px) {
-  .about-features {
+  .about-features-card {
     --edge-gap: max(clamp(1rem, 4vw, 2.5rem), (100vw - var(--maxw)) / 2);
     width: calc(100% + var(--edge-gap));
     border-right: none;
